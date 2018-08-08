@@ -9,7 +9,7 @@ git clone --recursive https://github.com/GnomeZworc/linux-config.git
 ## how to install
 
 ```
-./install.sh
+su root -c ./install.sh
 ```
 
 ## next to implement

@@ -1,6 +1,8 @@
 #!/bin/sh
 
-user=${USER_TO_INSTALL}
+echo -n "Give me the user name: "
+read user
+
 home=/home/${user}/
 trash_file=/dev/null
 
