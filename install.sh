@@ -10,18 +10,6 @@ install()
     apt-get install -y --quiet ${1} 2> ${trash_file} > ${trash_file}
 }
 
-py2install()
-{
-    echo "Install ${1} on python2.7"
-    pip install --user ${1} 2> ${trash_file} > ${trash_file}
-}
-
-py3install()
-{
-    echp "Install ${1} on python3"
-	pip3 install --user ${1} 2> ${trash_file} > ${trash_file}
-}
-
 echo "Install system package"
 while read tmp
 do
@@ -29,20 +17,21 @@ do
 done < package.list/debian-9.0-package.list
 
 rm ${home}/.config/awesome -rf 2> ${trash_file}
-mkdir -f ${home}/.config 2> ${trash_file}
+mkdir ${home}/.config 2> ${trash_file}
 cp -r ./awesome ${home}/.config/awesome
 cp ./graphical/.* ${home}/ 2> ${trash_file}
 cp ./bash/.* ${home}/ 2> ${trash_file}
+chown -R ${user}:${user} ${home}
 
 echo "Install python package"
 while read tmp
 do
-	su ${user} -c py2install ${tmp}
+	su ${user} -c "pip install --user ${tmp}"
 done < package.list/python2-package.list
 
 while read tmp
 do
-	su ${user} -c py3install ${tmp}
+	su ${user} -c "pip3 install --user ${tmp}"
 done < package.list/python3-package.list
 
 echo "Install docker"
