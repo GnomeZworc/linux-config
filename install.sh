@@ -6,19 +6,23 @@ trash_file=/dev/null
 
 install()
 {
-	apt-get install -y --quiet $1
+    echo "Install ${1} on system"
+    apt-get install -y --quiet ${1} 2> ${trash_file} > ${trash_file}
 }
 
 py2install()
 {
-	pip install --user $1
+    echo "Install ${1} on python2.7"
+    pip install --user ${1} 2> ${trash_file} > ${trash_file}
 }
 
 py3install()
 {
-	pip3 install --user $1
+    echp "Install ${1} on python3"
+	pip3 install --user ${1} 2> ${trash_file} > ${trash_file}
 }
 
+echo "Install system package"
 while read tmp
 do
 	install ${tmp}
@@ -30,6 +34,7 @@ cp -r ./awesome ${home}/.config/awesome
 cp ./graphical/.* ${home}/ 2> ${trash_file}
 cp ./bash/.* ${home}/ 2> ${trash_file}
 
+echo "Install python package"
 while read tmp
 do
 	su ${user} -c py2install ${tmp}
@@ -40,11 +45,11 @@ do
 	su ${user} -c py3install ${tmp}
 done < package.list/python3-package.list
 
+echo "Install docker"
 curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 add-apt-repository \
 	"deb [arch=amd64] https://download.docker.com/linux/debian \
 	$(lsb_release -cs) \
 	stable"
-
 apt-get update
-install docker-ce
+install docker-ce -y 2> ${trash_file} > ${trash_file}
