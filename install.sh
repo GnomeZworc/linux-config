@@ -18,3 +18,4 @@ rm ${home}/.config/awesome -rf 2> ${trash_file}
 mkdir -f ${home}/.config 2> ${trash_file}
 cp -r ./awesome ${home}/.config/awesome
 cp ./graphical/.* ${home}/ 2> ${trash_file}
+cp ./bash/.* ${home}/ 2> ${trash_file}
