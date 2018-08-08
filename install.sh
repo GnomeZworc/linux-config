@@ -9,6 +9,16 @@ install()
 	apt-get install -y --quiet $1
 }
 
+py2install()
+{
+	pip install $1
+}
+
+py3install()
+{
+	pip3 install $1
+}
+
 while read tmp
 do
 	install ${tmp}
@@ -19,3 +29,13 @@ mkdir -f ${home}/.config 2> ${trash_file}
 cp -r ./awesome ${home}/.config/awesome
 cp ./graphical/.* ${home}/ 2> ${trash_file}
 cp ./bash/.* ${home}/ 2> ${trash_file}
+
+while read tmp
+do
+	py2install ${tmp}
+done < package.list/python2-package.list
+
+while read tmp
+do
+	py3install ${tmp}
+done < package.list/python3-package.list
