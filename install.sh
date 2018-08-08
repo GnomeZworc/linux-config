@@ -11,12 +11,12 @@ install()
 
 py2install()
 {
-	pip install $1
+	pip install --user $1
 }
 
 py3install()
 {
-	pip3 install $1
+	pip3 install --user $1
 }
 
 while read tmp
@@ -32,10 +32,19 @@ cp ./bash/.* ${home}/ 2> ${trash_file}
 
 while read tmp
 do
-	py2install ${tmp}
+	su ${user} -c py2install ${tmp}
 done < package.list/python2-package.list
 
 while read tmp
 do
-	py3install ${tmp}
+	su ${user} -c py3install ${tmp}
 done < package.list/python3-package.list
+
+curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+add-apt-repository \
+	"deb [arch=amd64] https://download.docker.com/linux/debian \
+	$(lsb_release -cs) \
+	stable"
+
+apt-get update
+install docker-ce
