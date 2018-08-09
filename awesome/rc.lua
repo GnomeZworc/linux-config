@@ -64,6 +64,7 @@ end
 run_once({ "wmname LG3D" }) -- Fix java problem
 run_once({ "kbdd" })
 run_once({ "nm-applet -sm-disable" }) -- Network manager tray icon
+run_once({ "xautolock -time 5 -locker '/usr/bin/i3lock'" }) -- Network manager tray icon
 
 local modkey       = "Mod4"
 local altkey       = "Mod1"
